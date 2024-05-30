@@ -1,0 +1,92 @@
+<div class="card-container">
+  <div class="card card-blue">
+    <div class="row">
+      <div class="col left">
+        <div class="row">
+          <div class="pin">
+            <ion-icon
+              class="location"
+              mode="ios"
+              size="large"
+              name="location"
+              mode="ios"
+            ></ion-icon>
+          </div>
+          <div class="location">
+            <span>Jakarta</span>
+          </div>
+        </div>
+      </div>
+      <div class="col right">
+        <ion-segment
+          mode="ios"
+          value="celcius"
+          (ionChange)="switchTemperature($event)"
+        >
+          <ion-segment-button value="fahrenheit">
+            <ion-label class="fahrenheit">F</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="celcius">
+            <ion-label class="celcius">C</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col left">
+        <div class="temp">
+          <h1>Tuesday</h1>
+          <span>24 Dec 2023</span>
+          <div class="temperature">
+            <span>30&deg;</span>
+            <span>C</span>
+          </div>
+          <span>High: 7&deg; Low: 10&deg;</span>
+        </div>
+      </div>
+      <div class="col right">
+        <div class="temp-cloud">
+          <div class="cloud-sun-icon">
+            <!-- <ion-icon class="cloud" name="cloud"></ion-icon> -->
+            <img
+              src="assets/icon/cloud.png"
+              class="cloud"
+              width="200"
+              height="200"
+            />
+          </div>
+          <h1>Cloudy</h1>
+          <span>Feels like 26&deg;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-red">
+    <h3>Today Highlight</h3>
+    <div class="row">
+      <div class="col left card-item">Chance of Rain</div>
+      <div class="col right card-item">UV Index</div>
+    </div>
+    <div class="row">
+      <div class="col left card-item">Wind Status</div>
+      <div class="col right card-item">Humidity</div>
+    </div>
+  </div>
+</div>
+<div class="card-container">
+  <div class="card card-green">
+    <h3>Data Kiri</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+      Praesent libero.
+    </p>
+  </div>
+  <div class="card card-yellow">
+    <h3>Data Kanan</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+      Praesent libero.
+    </p>
+  </div>
+</div>

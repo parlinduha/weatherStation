@@ -1,0 +1,64 @@
+.progress {
+  display: block;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+path {
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease;
+}
+
+path.grey {
+  stroke: #ececed9e;
+  stroke-width: 20;
+}
+
+.grey-path-2 {
+  stroke: #fff;
+  stroke-width: 16px;
+}
+
+path.offline {
+  stroke: #c2c2c2;
+  stroke-width: 10px;
+}
+
+path.online {
+  stroke: #007bff;
+  stroke-width: 10px;
+}
+
+path.white1 {
+  stroke: #fff;
+  stroke-width: 5.5px;
+}
+
+.progressdiv {
+  position: relative;
+}
+
+.progressdiv:after {
+  position: absolute;
+  top: 40%;
+  left: 46%;
+  font-size: 40px;
+  transform: translate(-50%, -50%);
+  content: attr(data-percent);
+}
+
+.progressdiv:before {
+  position: absolute;
+  top: 53%;
+  left: 46%;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+  content: "online";
+}
+
+.progress-main-all {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}

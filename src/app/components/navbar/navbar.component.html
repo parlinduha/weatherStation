@@ -1,0 +1,17 @@
+<div class="header">
+  <div class="search-bar">
+    <button><ion-icon name="search"></ion-icon></button>
+    <input type="text" placeholder="Search..." />
+  </div>
+  <div class="user-profile" (click)="toggleDropdown()">
+    <ion-icon name="person"></ion-icon>
+    <span>Jack</span>
+    <ion-icon name="chevron-down"></ion-icon>
+    <div class="dropdown-menu" [ngClass]="{ show: isDropdownOpen }">
+      <ul>
+        <li><a href="#">Setting</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
