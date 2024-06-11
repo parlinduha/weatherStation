@@ -1,18 +1,25 @@
-<div class="h-full grid grid-cols-3 rounded-[14px]">
-  <div class="flex flex-col justify-center items-center -ml-20 gap-3">
+<div class="h-full grid grid-cols-4 rounded-[14px]">
+  <div class="flex flex-col justify-center items-center -ml-[2rem] gap-3">
     <div>
-      <img src="assets/images/icons/gauge.png" alt="" />
+      <img class=" relative w-16 h-16" src="assets/images/icons/gauge.png" alt="Gauge Icon" />
     </div>
-    <div class=" text-lg font-semibold">Pressure</div>
+    <div class="text-sm font-medium">Pressure</div>
   </div>
-  <div class="flex flex-col justify-center items-center">
-    <div class="font-semibold">Relative</div>
-    <div class="font-bold text-4xl">1010.5</div>
+
+  <div class="relative flex flex-col justify-center items-center">
+    <div class="text-sm font-medium">Relative</div>
+    <div class="font-medium  text-4xl">1010.5</div>
     <div class="font-semibold">hpa</div>
   </div>
+
+ <div class="relative flex flex-col justify-center items-center">
+    <div class="absolute left-1/2 transform -translate-x-1/2 w-px h-1/2"
+         style="background: linear-gradient(to bottom, #6B38FC 10%, #865CFD 50%, #9F7EFD 90%);"></div>
+  </div>
+
   <div class="flex flex-col justify-center items-center">
-    <div class="font-semibold">Absolute</div>
-    <div class="font-bold text-4xl">1010.5</div>
+    <div class="text-sm font-medium">Absolute</div>
+    <div class="font-medium text-4xl">1010.5</div>
     <div class="font-semibold">hpa</div>
   </div>
 </div>

@@ -1,15 +1,105 @@
-<div class="flex flex-col justify-between p-4 items-center">
-  <div class="flex flex-row">
-    <div>
+<div
+  class="grid grid-cols-1 justify-center justify-items-center h-full p-4 items-center"
+>
+  <div class="flex flex-row justify-between  -mt-[12vh] gap-x-5">
+    <div class="">
       <img
         src="assets/images/icons/icon-wind-direction.png"
-        class="w-20 -ml-4 absolute"
+        class="w-20 absolute -mt-[25px] -ml-[45px]"
         alt=""
       />
     </div>
-    <div class=" text-lg">Wind Direction</div>
+    <div class="text-sm font-medium">Wind Direction</div>
   </div>
-  <div>
-    <div class="bg-orange-400 py-3">compass</div>
+  <div class="-mt-24">
+    <div class="text-4xl font-bold text-center text-custome-gradient">{{ windDirection }}&deg;</div>
+    <div class="font-medium  text-center">{{ getWindDirection() }}</div>
+  </div>
+  <div id="compass">
+    <div
+      class="flex justify-center items-center h-[100px] w-[100px] p-14 rounded-full relative"
+    >
+      <div
+        class="flex bg-blue-500 justify-center items-center h-full"
+        [ngStyle]="{ transform: 'rotate(' + getCompassRotation() + 'deg)' }"
+      >
+        <div
+          id="compass2"
+          class="flex justify-center items-center h-[85px] w-[85px] border-[15px] p-2 border-[#291d4d] rounded-full"
+        >
+          <div
+            class="label"
+            style="
+            --angle: {{ positionLabelN }}deg;
+          "
+            [ngStyle]="{
+              transform:
+                'rotate(0deg) translate(0, -63px) rotate(calc(0deg - var(--angle)))'
+            }"
+          >
+            <span class="text-[#9774FB] font-bold text-[10px]">N</span>
+          </div>
+          <div
+            class="label"
+            style="
+            --angle: {{ positionLabelE }}deg;
+          "
+            [ngStyle]="{
+              transform:
+                'rotate(90deg) translate(0, -60px) rotate(calc(0deg - var(--angle)))'
+            }"
+          >
+            <span class="text-[10px]">E</span>
+          </div>
+          <div
+            class="label"
+            style="
+            --angle: {{ positionLabelS }}deg;
+          "
+            [ngStyle]="{
+              transform:
+                'rotate(180deg) translate(0, -60px) rotate(calc(0deg - var(--angle)))'
+            }"
+          >
+            <span class="text-[10px]">S</span>
+          </div>
+          <div
+            class="label"
+            style="--angle: {{ positionLabelW }}deg"
+            [ngStyle]="{
+              transform:
+                'rotate(270deg) translate(0, -62px) rotate(calc(0deg - var(--angle)))'
+            }"
+          >
+            <span class="text-[10px]">W</span>
+          </div>
+          <div
+            class="label"
+            style="--angle: {{ positionLabelW }}deg"
+            [ngStyle]="{
+              transform:
+                'rotate(' +
+                getCompassRotation() +
+                'deg) translate(0, -35px) rotate(calc(0deg - var(--angle)))'
+            }"
+          >
+            <div
+              class="w-[13px] h-[13px] bg-[#7546fc] border border-[#7546fc] rounded-full"
+              size="small"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="pin-compass p-5 rounded-full flex flex-col justify-center items-center"
+      >
+        <div class="text-sm font-bold text-center">
+          {{ windDirection }}&deg;
+        </div>
+        <div class="text-xs font-semibodl text-center">
+          {{ getWindDirectionLabel() }}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
