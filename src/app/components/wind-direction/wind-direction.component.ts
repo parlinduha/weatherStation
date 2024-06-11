@@ -1,5 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
+interface Sensor {
+  title: string;
+  list: [string, string, string][];
+}
+
+interface WindDirectionData {
+  status: string;
+  message: string;
+  data: {
+    sensor: Sensor[];
+    battery: {
+      title: string;
+      list: string[];
+    };
+    created_at: string;
+  };
+}
+
 @Component({
   selector: 'app-wind-direction',
   templateUrl: './wind-direction.component.html',
@@ -7,17 +25,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WindDirectionComponent implements OnInit {
   windDirection: number = 90;
-  positionLabelN: number = (this.windDirection + 0) % 360;
-  positionLabelE: number = (this.windDirection + 90) % 360;
-  positionLabelS: number = (this.windDirection + 180) % 360;
-  positionLabelW: number = (this.windDirection + 270) % 360;
+  positionLabelN: number;
+  positionLabelE: number;
+  positionLabelS: number;
+  positionLabelW: number;
 
-  constructor() {}
+  constructor() {
+    this.positionLabelN = (this.windDirection + 0) % 360;
+    this.positionLabelE = (this.windDirection + 90) % 360;
+    this.positionLabelS = (this.windDirection + 180) % 360;
+    this.positionLabelW = (this.windDirection + 270) % 360;
+  }
 
   ngOnInit() {
-    this.getCompassRotation();
-    this.getWindDirection();
-    this.getWindDirectionLabel();
+    this.getDataWindDirection();
   }
 
   getCompassRotation(): number {
@@ -60,6 +81,7 @@ export class WindDirectionComponent implements OnInit {
       return 'North-Northwest';
     }
   }
+
   getWindDirectionLabel(): string {
     const rotation = this.getCompassRotation();
     if (rotation >= 348.75 || rotation < 11.25) {
@@ -94,6 +116,32 @@ export class WindDirectionComponent implements OnInit {
       return 'NW';
     } else {
       return 'NNW';
+    }
+  }
+
+  getDataWindDirection() {
+    const windDirectionData = localStorage.getItem('anemometer');
+    if (windDirectionData) {
+      const parsedData: WindDirectionData = JSON.parse(windDirectionData);
+      // console.log('object is', parsedData);
+
+      if (parsedData && parsedData.data && parsedData.data.sensor) {
+        const windSensor = parsedData.data.sensor.find(
+          (sensor: Sensor) => sensor.title === 'Wind Speed'
+        );
+        if (windSensor) {
+          const directionData = windSensor.list.find(
+            (item: [string, string, string]) => item[0] === 'Direction'
+          );
+          if (directionData) {
+            this.windDirection = parseInt(directionData[1], 10);
+            this.positionLabelN = (this.windDirection + 0) % 360;
+            this.positionLabelE = (this.windDirection + 90) % 360;
+            this.positionLabelS = (this.windDirection + 180) % 360;
+            this.positionLabelW = (this.windDirection + 270) % 360;
+          }
+        }
+      }
     }
   }
 }
