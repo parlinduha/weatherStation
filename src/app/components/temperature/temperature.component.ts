@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherService } from 'src/app/utils/weather.service';
 
 interface Sensor {
   title: string;
@@ -27,16 +28,16 @@ export class TemperatureComponent implements OnInit {
   temperature: number | null = null;
   unit: string = '';
 
-  constructor() {}
+  constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
     this.getTemperature();
   }
 
   getTemperature() {
-    const localStorageData = localStorage.getItem('anemometer');
-    if (localStorageData) {
-      const parsedData: WindDirectionData = JSON.parse(localStorageData);
+    // const localStorageData = localStorage.getItem('anemometer');
+    this.weatherService.service_get_data_live().subscribe((data) => {
+      const parsedData: WindDirectionData = data;
       // console.log('object is', parsedData);
 
       if (parsedData && parsedData.data && parsedData.data.sensor) {
@@ -56,10 +57,14 @@ export class TemperatureComponent implements OnInit {
             }
             this.temperature = parseInt(temperature.toString(), 10);
             this.unit = unit;
-            // console.log("Temperature",this.temperature);
           }
         }
       }
-    }
+    });
+  }
+
+  // console.log('Temperature', this.temperature);
+  getTemperatureDisplay(): string {
+    return this.temperature !== null ? this.temperature.toString() : '--/--';
   }
 }

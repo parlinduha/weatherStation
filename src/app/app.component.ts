@@ -11,8 +11,13 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.weatherService.service_get_data_live().subscribe((response) => {
-      localStorage.setItem('anemometer', JSON.stringify(response));
-      // console.log('API Response:', response);
+      if (response) {
+        // Jika ada data response dari API, simpan data ke localStorage.
+        localStorage.setItem('anemometer', JSON.stringify(response));
+      } else {
+        // Jika tidak ada data response dari API, clear semua data anemometer di localStorage.
+        localStorage.removeItem('anemometer');
+      }
     });
   }
 }

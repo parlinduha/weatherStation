@@ -12,13 +12,13 @@
 
   <div class="relative flex flex-col justify-center items-center">
     <div class="text-sm font-medium">Relative</div>
-    <div class="font-medium text-4xl">{{ relative }}</div>
+    <div class="font-medium text-4xl text-custome-gradient">{{ getPressureRelative() }}</div>
     <div class="font-semibold">{{ unitRel }}</div>
   </div>
 
   <div class="relative flex flex-col justify-center items-center">
     <div
-      class="absolute left-1/2 transform -translate-x-1/2 w-px h-1/2"
+      class="absolute rounded-b-[100%] left-1/2 transform -translate-x-1/2 w-px h-2/3  "
       style="
         background: linear-gradient(
           to bottom,
@@ -32,7 +32,7 @@
 
   <div class="flex flex-col justify-center items-center">
     <div class="text-sm font-medium">Absolute</div>
-    <div class="font-medium text-4xl">{{ absolute }}</div>
+    <div class="font-medium text-4xl text-custome-gradient">{{ getPressureAbsolute() }}</div>
     <div class="font-semibold">{{ unitAbs }}</div>
   </div>
 </div>

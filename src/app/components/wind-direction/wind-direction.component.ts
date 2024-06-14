@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherService } from 'src/app/utils/weather.service';
 
 interface Sensor {
   title: string;
@@ -24,13 +25,13 @@ interface WindDirectionData {
   styleUrls: ['./wind-direction.component.scss'],
 })
 export class WindDirectionComponent implements OnInit {
-  windDirection: number = 90;
+  windDirection: number = 0;
   positionLabelN: number;
   positionLabelE: number;
   positionLabelS: number;
   positionLabelW: number;
 
-  constructor() {
+  constructor(private weatherService: WeatherService) {
     this.positionLabelN = (this.windDirection + 0) % 360;
     this.positionLabelE = (this.windDirection + 90) % 360;
     this.positionLabelS = (this.windDirection + 180) % 360;
@@ -120,11 +121,9 @@ export class WindDirectionComponent implements OnInit {
   }
 
   getDataWindDirection() {
-    const windDirectionData = localStorage.getItem('anemometer');
-    if (windDirectionData) {
-      const parsedData: WindDirectionData = JSON.parse(windDirectionData);
-      // console.log('object is', parsedData);
-
+    // const windDirectionData = localStorage.getItem('anemometer');
+    this.weatherService.service_get_data_live().subscribe((data) => {
+      const parsedData: WindDirectionData = data;
       if (parsedData && parsedData.data && parsedData.data.sensor) {
         const windSensor = parsedData.data.sensor.find(
           (sensor: Sensor) => sensor.title === 'Wind Speed'
@@ -133,6 +132,7 @@ export class WindDirectionComponent implements OnInit {
           const directionData = windSensor.list.find(
             (item: [string, string, string]) => item[0] === 'Direction'
           );
+          // console.log('object', directionData);
           if (directionData) {
             this.windDirection = parseInt(directionData[1], 10);
             this.positionLabelN = (this.windDirection + 0) % 360;
@@ -142,6 +142,6 @@ export class WindDirectionComponent implements OnInit {
           }
         }
       }
-    }
+    });
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherService } from 'src/app/utils/weather.service';
 
 interface Sensor {
   title: string;
@@ -28,16 +29,16 @@ export class PressureComponent implements OnInit {
   relative: number | null = null;
   unitRel: string = '';
 
-  constructor() {}
+  constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
     this.getPressure();
   }
 
   getPressure() {
-    const localStorageData = localStorage.getItem('anemometer');
-    if (localStorageData) {
-      const parsedData: WindDirectionData = JSON.parse(localStorageData);
+    // const localStorageData = localStorage.getItem('anemometer');
+    this.weatherService.service_get_data_live().subscribe((data) => {
+      const parsedData: WindDirectionData = data;
       // console.log('object is', parsedData);
 
       if (parsedData && parsedData.data && parsedData.data.sensor) {
@@ -61,6 +62,12 @@ export class PressureComponent implements OnInit {
           }
         }
       }
-    }
+    });
+  }
+  getPressureRelative(): string {
+    return this.relative !== null ? this.relative.toFixed(2) : '--/--';
+  }
+  getPressureAbsolute(): string {
+    return this.absolute !== null ? this.absolute.toFixed(2) : '--/--';
   }
 }

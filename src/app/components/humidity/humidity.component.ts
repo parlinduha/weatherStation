@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherService } from 'src/app/utils/weather.service';
 
 interface Sensor {
   title: string;
@@ -25,16 +26,16 @@ interface WindDirectionData {
 export class HumidityComponent implements OnInit {
   humidity: number | null = null;
 
-  constructor() {}
+  constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
     this.getHumidity();
   }
 
   getHumidity() {
-    const localStorageData = localStorage.getItem('anemometer');
-    if (localStorageData) {
-      const parsedData: WindDirectionData = JSON.parse(localStorageData);
+    // const localStorageData = localStorage.getItem('anemometer');
+    this.weatherService.service_get_data_live().subscribe((data) => {
+      const parsedData: WindDirectionData = data;
       // console.log('object is', parsedData);
 
       if (parsedData && parsedData.data && parsedData.data.sensor) {
@@ -50,6 +51,9 @@ export class HumidityComponent implements OnInit {
           }
         }
       }
-    }
+    });
+  }
+  getHumidityDisplay(): string {
+    return this.humidity !== null ? this.humidity.toString() : '--/--';
   }
 }
