@@ -6,8 +6,13 @@ import { LayoutPage } from './layout.page';
 const routes: Routes = [
   {
     path: '',
-    component: LayoutPage
-  }
+    component: LayoutPage,
+  },
+  {
+    path: '',
+    redirectTo: 'layout',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

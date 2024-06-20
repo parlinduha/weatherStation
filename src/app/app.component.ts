@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WeatherService } from './utils/weather.service';
 
 @Component({
@@ -6,14 +6,12 @@ import { WeatherService } from './utils/weather.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
-
-  constructor(private weatherService: WeatherService) {}
+export class AppComponent implements OnInit {
+  constructor() {}
 
   ngOnInit(): void {
-    this.weatherService.service_get_data_live().subscribe((response) => {
-      localStorage.setItem('anemometer', JSON.stringify(response));
-      // console.log('API Response:', response);
-    });
+
   }
+
+
 }

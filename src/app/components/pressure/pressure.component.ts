@@ -49,9 +49,9 @@ export class PressureComponent implements OnInit {
     }
   }
   getPressureRelative(): string {
-    return this.relative !== null ? this.relative.toFixed(2) : '--/--';
+    return this.relative !== null ? this.relative.toFixed(1) : '--/--';
   }
   getPressureAbsolute(): string {
-    return this.absolute !== null ? this.absolute.toFixed(2) : '--/--';
+    return this.absolute !== null ? this.absolute.toFixed(1) : '--/--';
   }
 }

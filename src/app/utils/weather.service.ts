@@ -7,7 +7,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class WeatherService {
   // api_url = 'http://172.15.1.229:80/api/get-anemometer';
-  api_url = 'http://localhost:8100/get_livedata_info';
+  api_url = 'http://172.15.3.107:8100/get_livedata_info';
 
   constructor(private http: HttpClient) {}
 
