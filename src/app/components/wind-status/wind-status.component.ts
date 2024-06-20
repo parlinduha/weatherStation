@@ -1,23 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/utils/weather.service';
 
-interface Sensor {
-  title: string;
-  list: [string, string, string][];
-}
-
-interface WindDirectionData {
-  status: string;
-  message: string;
-  data: {
-    sensor: Sensor[];
-    battery: {
-      title: string;
-      list: string[];
-    };
-    created_at: string;
-  };
-}
 @Component({
   selector: 'app-wind-status',
   templateUrl: './wind-status.component.html',
@@ -36,33 +19,33 @@ export class WindStatusComponent implements OnInit {
   }
 
   getWindStatus() {
-    // const localStorageData = localStorage.getItem('anemometer');
-    this.weatherService.service_get_data_live().subscribe((data) => {
-      const parsedData: WindDirectionData = data;
-      // console.log('object is', parsedData);
-
-      if (parsedData && parsedData.data && parsedData.data.sensor) {
-        const windSensor = parsedData.data.sensor.find(
-          (sensor: Sensor) => sensor.title === 'Wind Speed'
-        );
-        if (windSensor) {
-          const absoluteData = windSensor.list.find(
-            (item: [string, string, string]) => item[0] === 'Max Daily Gust'
-          );
-          if (absoluteData) {
-            this.maxDailyGust = parseFloat(absoluteData[1]);
-            this.unitMax = absoluteData[2];
-          }
-          const relativeData = windSensor.list.find(
-            (item: [string, string, string]) => item[0] === 'Gust'
-          );
-          if (relativeData) {
-            this.gust = parseFloat(relativeData[1]);
-            this.unitGust = relativeData[2];
-          }
-        }
+    const localStorageData = localStorage.getItem('anemometer');
+    if (localStorageData) {
+      const parsedData = JSON.parse(localStorageData);
+      const gustData = parsedData.common_list.find(
+        (item: any) => item.id === '0x19'
+      );
+      if (gustData) {
+        const gustVal = gustData.val.split(' ');
+        this.gust = parseFloat(gustVal[0]);
+        this.unitGust = gustVal[1];
       }
-    });
+      const maxDailyGustData = parsedData.common_list.find(
+        (item: any) => item.id === '0x0C'
+      );
+      if (maxDailyGustData) {
+        const maxDailyGustVal = maxDailyGustData.val.split(' ');
+        this.maxDailyGust = parseFloat(maxDailyGustVal[0]);
+        this.unitMax = maxDailyGustVal[1];
+      }
+    }
   }
-  
+
+  getGustDisplay(): string {
+    return this.gust !== null ? this.gust.toString() : '--/--';
+  }
+
+  getMaxDailyGustDisplay(): string {
+    return this.maxDailyGust !== null ? this.maxDailyGust.toString() : '--/--';
+  }
 }

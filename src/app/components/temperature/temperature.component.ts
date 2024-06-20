@@ -1,24 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/utils/weather.service';
 
-interface Sensor {
-  title: string;
-  list: [string, string, string][];
-}
-
-interface WindDirectionData {
-  status: string;
-  message: string;
-  data: {
-    sensor: Sensor[];
-    battery: {
-      title: string;
-      list: string[];
-    };
-    created_at: string;
-  };
-}
-
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
@@ -27,44 +9,61 @@ interface WindDirectionData {
 export class TemperatureComponent implements OnInit {
   temperature: number | null = null;
   unit: string = '';
+  feels: number | null = null;
+  unitFeels: string = '';
 
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
     this.getTemperature();
+    this.getFeels();
   }
 
   getTemperature() {
-    // const localStorageData = localStorage.getItem('anemometer');
-    this.weatherService.service_get_data_live().subscribe((data) => {
-      const parsedData: WindDirectionData = data;
-      // console.log('object is', parsedData);
-
-      if (parsedData && parsedData.data && parsedData.data.sensor) {
-        const windSensor = parsedData.data.sensor.find(
-          (sensor: Sensor) => sensor.title === 'Outdoor'
-        );
-        if (windSensor) {
-          const windSpeedData = windSensor.list.find(
-            (item: [string, string, string]) => item[0] === 'Temperature'
-          );
-          if (windSpeedData) {
-            let temperature = parseFloat(windSpeedData[1]);
-            let unit = windSpeedData[2];
-            if (unit === 'Â°F') {
-              temperature = (temperature - 32) * (5 / 9);
-              unit = 'C';
-            }
-            this.temperature = parseInt(temperature.toString(), 10);
-            this.unit = unit;
-          }
+    const localStorageData = localStorage.getItem('anemometer');
+    if (localStorageData) {
+      const parsedData = JSON.parse(localStorageData);
+      const temperatureData = parsedData.common_list.find(
+        (item: any) => item.id === '0x02'
+      );
+      if (temperatureData) {
+        let temperature = parseFloat(temperatureData.val);
+        let unit = temperatureData.unit;
+        if (unit === 'Â°F') {
+          temperature = (temperature - 32) * (5 / 9);
+          unit = 'C';
         }
+        this.temperature = parseInt(temperature.toString(), 10);
+        this.unit = unit;
       }
-    });
+    }
   }
 
-  // console.log('Temperature', this.temperature);
+  getFeels() {
+    const localStorageData = localStorage.getItem('anemometer');
+    if (localStorageData) {
+      const parsedData = JSON.parse(localStorageData);
+      const temperatureData = parsedData.common_list.find(
+        (item: any) => item.id === '3'
+      );
+      if (temperatureData) {
+        let temperature = parseFloat(temperatureData.val);
+        let unit = temperatureData.unit;
+        if (unit === 'Â°F') {
+          temperature = (temperature - 32) * (5 / 9);
+          unit = 'C';
+        }
+        this.feels = parseInt(temperature.toString(), 10);
+        this.unitFeels = unit;
+      }
+    }
+  }
+
   getTemperatureDisplay(): string {
     return this.temperature !== null ? this.temperature.toString() : '--/--';
+  }
+
+  getFeelsDisplay(): string {
+    return this.feels !== null ? this.feels.toString() : '--/--';
   }
 }

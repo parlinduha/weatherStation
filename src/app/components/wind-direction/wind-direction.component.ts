@@ -121,27 +121,19 @@ export class WindDirectionComponent implements OnInit {
   }
 
   getDataWindDirection() {
-    // const windDirectionData = localStorage.getItem('anemometer');
-    this.weatherService.service_get_data_live().subscribe((data) => {
-      const parsedData: WindDirectionData = data;
-      if (parsedData && parsedData.data && parsedData.data.sensor) {
-        const windSensor = parsedData.data.sensor.find(
-          (sensor: Sensor) => sensor.title === 'Wind Speed'
-        );
-        if (windSensor) {
-          const directionData = windSensor.list.find(
-            (item: [string, string, string]) => item[0] === 'Direction'
-          );
-          // console.log('object', directionData);
-          if (directionData) {
-            this.windDirection = parseInt(directionData[1], 10);
-            this.positionLabelN = (this.windDirection + 0) % 360;
-            this.positionLabelE = (this.windDirection + 90) % 360;
-            this.positionLabelS = (this.windDirection + 180) % 360;
-            this.positionLabelW = (this.windDirection + 270) % 360;
-          }
-        }
+    const localStorageData = localStorage.getItem('anemometer');
+    if (localStorageData) {
+      const parsedData = JSON.parse(localStorageData);
+      const directionData = parsedData.common_list.find(
+        (item: any) => item.id === '0x0A'
+      );
+      if (directionData) {
+        this.windDirection = parseInt(directionData.val, 10);
+        this.positionLabelN = (this.windDirection + 0) % 360;
+        this.positionLabelE = (this.windDirection + 90) % 360;
+        this.positionLabelS = (this.windDirection + 180) % 360;
+        this.positionLabelW = (this.windDirection + 270) % 360;
       }
-    });
+    }
   }
 }

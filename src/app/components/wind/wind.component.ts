@@ -34,23 +34,16 @@ export class WindComponent implements OnInit {
   }
 
   getWind() {
-    // const localStorageData = localStorage.getItem('anemometer');
-    this.weatherService.service_get_data_live().subscribe((data) => {
-      const parsedData: WindDirectionData = data;
-      if (parsedData && parsedData.data && parsedData.data.sensor) {
-        const windSensor = parsedData.data.sensor.find(
-          (sensor: Sensor) => sensor.title === 'Wind Speed'
-        );
-        if (windSensor) {
-          const windSpeedData = windSensor.list.find(
-            (item: [string, string, string]) => item[0] === 'Wind'
-          );
-          if (windSpeedData) {
-            this.windSpeed = parseFloat(windSpeedData[1]);
-          }
-        }
+    const localStorageData = localStorage.getItem('anemometer');
+    if (localStorageData) {
+      const parsedData = JSON.parse(localStorageData);
+      const windSpeedData = parsedData.common_list.find(
+        (item: any) => item.id === '0x0B'
+      );
+      if (windSpeedData) {
+        this.windSpeed = parseFloat(windSpeedData.val);
       }
-    });
+    }
   }
   getWindSpeedDisplay(): string {
     return this.windSpeed !== null ? this.windSpeed.toString() : '--/--';

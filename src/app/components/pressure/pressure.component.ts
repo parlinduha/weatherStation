@@ -36,33 +36,17 @@ export class PressureComponent implements OnInit {
   }
 
   getPressure() {
-    // const localStorageData = localStorage.getItem('anemometer');
-    this.weatherService.service_get_data_live().subscribe((data) => {
-      const parsedData: WindDirectionData = data;
-      // console.log('object is', parsedData);
-
-      if (parsedData && parsedData.data && parsedData.data.sensor) {
-        const windSensor = parsedData.data.sensor.find(
-          (sensor: Sensor) => sensor.title === 'Pressure'
-        );
-        if (windSensor) {
-          const absoluteData = windSensor.list.find(
-            (item: [string, string, string]) => item[0] === 'Absolute'
-          );
-          if (absoluteData) {
-            this.absolute = parseFloat(absoluteData[1]);
-            this.unitAbs = absoluteData[2];
-          }
-          const relativeData = windSensor.list.find(
-            (item: [string, string, string]) => item[0] === 'Relative'
-          );
-          if (relativeData) {
-            this.relative = parseFloat(relativeData[1]);
-            this.unitRel = relativeData[2];
-          }
-        }
+    const localStorageData = localStorage.getItem('anemometer');
+    if (localStorageData) {
+      const parsedData = JSON.parse(localStorageData);
+      const wh25Data = parsedData.wh25[0];
+      if (wh25Data) {
+        this.absolute = parseFloat(wh25Data.abs.split(' ')[0]);
+        this.unitAbs = wh25Data.abs.split(' ')[1];
+        this.relative = parseFloat(wh25Data.rel.split(' ')[0]);
+        this.unitRel = wh25Data.rel.split(' ')[1];
       }
-    });
+    }
   }
   getPressureRelative(): string {
     return this.relative !== null ? this.relative.toFixed(2) : '--/--';
