@@ -1,0 +1,38 @@
+<div class="flex flex-col h-full p-3 justify-around items-center">
+  <div class="flex flex-col justify-center items-center gap-1">
+    <div>
+      <img
+        class="relative w-8 h-8"
+        src="assets/images/icons/icon-wind-status.png"
+        alt=""
+      />
+    </div>
+    <div class="text-sm font-medium">Wind Status</div>
+  </div>
+  <div class="flex flex-col h-full justify-around">
+    <div class="flex flex-col justify-center items-center">
+      <span class="font-medium">Gust</span>
+      <div *ngIf="gust !== null">
+        <span class="font-semibold text-3xl text-custome-gradient">
+          {{ gust }}
+        </span>
+        <span class="font-light">{{ unitGust }}</span>
+      </div>
+      <div *ngIf="gust === null">
+        <span class="font-semibold text-3xl text-custome-gradient">--/--</span>
+      </div>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <span class="font-medium">Max Daily Gust</span>
+      <div *ngIf="maxDailyGust !== null">
+        <span class="font-semibold text-3xl text-custome-gradient">
+          {{ getMaxDailyGustDisplay() }}
+        </span>
+        <span class="font-light">{{ unitMax }}</span>
+      </div>
+      <div *ngIf="maxDailyGust === null">
+        <span class="font-semibold text-3xl text-custome-gradient">--/--</span>
+      </div>
+    </div>
+  </div>
+</div>

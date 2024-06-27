@@ -1,0 +1,28 @@
+<div class="p-3">
+  <div class="flex gap-3">
+    <div>
+      <img src="assets/images/icons/icon-temperature.png" alt="" />
+    </div>
+    <div class="text-sm font-medium">Temperature</div>
+  </div>
+  <div class="flex justify-between items-center">
+    <div class="flex mt-5">
+      <span class="text-8xl font-semibold text-custome-gradient"
+        >{{ getTemperatureDisplay() }}&deg;</span
+      >
+      <span class="text-8xl font-semibold text-custome-gradient">{{
+        unit
+      }}</span>
+    </div>
+    <div>
+      <img
+        class="absolute w-[55vh] -ml-[55vh] -mt-[20vh]"
+        src="assets/images/icons/icon-cloud.png"
+        alt=""
+      />
+    </div>
+    <div class="ml-5 mt-[180px] absolute">
+      Feels Like <span class="text-lg font-bold mx-2">{{ feels }}&deg;{{ unitFeels }}</span>
+    </div>
+  </div>
+</div>

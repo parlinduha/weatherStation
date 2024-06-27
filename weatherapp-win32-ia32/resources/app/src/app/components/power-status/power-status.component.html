@@ -1,0 +1,30 @@
+<div *ngIf="powerStatus">
+  <h5 class="mt-2 text-center">Power ON</h5>
+  <div class="flex flex-col justify-center items-center mt-1">
+    <div
+      class="w-full h-16 border-t-[5px] border-l-[5px] border-r-[5px] rounded-t-full border-[#713FFD] shadow-2xl"
+    ></div>
+    <div>
+      <img
+        class="absolute -mt-10 -ml-5 w-10 h-10"
+        src="assets/images/icons/icon-power.png"
+        alt=""
+      />
+    </div>
+  </div>
+</div>
+<div *ngIf="!powerStatus">
+  <h5 class="mt-2 text-center">Power OFF</h5>
+  <div class="flex flex-col justify-center items-center mt-1">
+    <div
+      class="w-full h-16 border-t-[5px] border-l-[5px] border-r-[5px] rounded-t-full border-[#1c1c1e] shadow-2xl"
+    ></div>
+    <div class="w-full flex justify-center items-center">
+      <img
+        class="relative -mt-14 w-16 h-16"
+        src="assets/icon/power-off.png"
+        alt=""
+      />
+    </div>
+  </div>
+</div>

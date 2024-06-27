@@ -1,0 +1,42 @@
+<div class="h-full grid grid-cols-4 rounded-[14px]">
+  <div class="flex flex-col justify-center items-center -ml-[2rem] gap-3">
+    <div>
+      <img
+        class="relative w-16 h-16"
+        src="assets/images/icons/gauge.png"
+        alt="Gauge Icon"
+      />
+    </div>
+    <div class="text-sm font-medium">Pressure</div>
+  </div>
+
+  <div class="relative flex flex-col justify-center items-center">
+    <div class="text-sm font-medium">Relative</div>
+    <div class="font-medium text-4xl text-custome-gradient">
+      {{ getPressureRelative() }}
+    </div>
+    <div class="font-semibold">{{ unitRel }}</div>
+  </div>
+
+  <div class="relative flex flex-col justify-center items-center">
+    <div
+      class="absolute rounded-b-[100%] left-1/2 transform -translate-x-1/2 w-px h-2/3"
+      style="
+        background: linear-gradient(
+          to bottom,
+          #6b38fc 10%,
+          #865cfd 50%,
+          #9f7efd 90%
+        );
+      "
+    ></div>
+  </div>
+
+  <div class="flex flex-col justify-center items-center">
+    <div class="text-sm font-medium">Absolute</div>
+    <div class="font-medium text-4xl text-custome-gradient">
+      {{ getPressureAbsolute() }}
+    </div>
+    <div class="font-semibold">{{ unitAbs }}</div>
+  </div>
+</div>

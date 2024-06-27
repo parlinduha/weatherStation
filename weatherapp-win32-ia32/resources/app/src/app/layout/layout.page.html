@@ -1,0 +1,44 @@
+<div class="h-screen w-screen">
+  <div class="container-fluid mx-auto p-4 md:p-8 h-full" style="padding: 24px">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 h-full">
+      <!-- Kolom Pertama (30%) -->
+      <div class="md:col-span-2 grid grid-rows-4 gap-4 h-full">
+        <div id="power-status" class="h-full rounded-[14px] p-4 relative">
+          <app-power-status></app-power-status>
+        </div>
+
+        <div id="wind-direction" class="h-full row-span-3 rounded-[14px]">
+          <app-wind-direction></app-wind-direction>
+        </div>
+      </div>
+      <!-- Kolom Kedua (60%) -->
+      <div class="col-span-8 grid grid-rows-6 gap-4 h-full">
+        <div id="title" class="grid gap-4 h-full rounded-[14px]">
+          <div class="flex h-full justify-center items-center rounded-[14px]">
+            <h4 class="items-center font-bold text-[48.73px] font-[Russo One]">
+              ANEMOMETER
+            </h4>
+          </div>
+        </div>
+        <div id="temperature" class="h-full row-span-3 rounded-[14px]">
+          <app-temperature></app-temperature>
+        </div>
+        <div id="pressure" class="grid gap-4 h-full row-span-2 rounded-[14px]">
+          <app-pressure></app-pressure>
+        </div>
+        <div class="grid grid-cols-2 gap-4 h-full row-span-7 rounded-[14px]">
+          <div id="humidity" class="h-full rounded-[14px]">
+            <app-humidity></app-humidity>
+          </div>
+          <div id="wind" class="h-full rounded-[14px]">
+            <app-wind></app-wind>
+          </div>
+        </div>
+      </div>
+      <!-- Kolom Ketiga (30%) -->
+      <div id="wind-status" class="col-span-2 h-full rounded-[14px]">
+        <app-wind-status></app-wind-status>
+      </div>
+    </div>
+  </div>
+</div>
