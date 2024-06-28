@@ -1,5 +1,5 @@
 <div
-  class="grid grid-cols-1 justify-center justify-items-center h-full p-4 items-center"
+  class="grid items-center justify-center h-full grid-cols-1 p-4 justify-items-center"
 >
   <div class="flex flex-row justify-between -mt-[12vh] gap-x-5">
     <div class="">
@@ -11,8 +11,8 @@
     </div>
     <div class="text-sm font-medium">Wind Direction</div>
   </div>
-  <div class="-mt-24">
-    <div class="text-4xl font-bold text-center text-custome-gradient">
+  <div class="flex flex-col -mt-24">
+    <div class="ml-2 text-4xl font-bold text-center text-custome-gradient">
       {{ windDirection !== null ? windDirection : "--/--" }}&deg;
     </div>
     <div class="font-medium text-center">{{ getWindDirection() }}</div>
@@ -22,7 +22,7 @@
       class="flex justify-center items-center h-[100px] w-[100px] p-14 rounded-full relative"
     >
       <div
-        class="flex bg-blue-500 justify-center items-center h-full"
+        class="flex items-center justify-center h-full bg-blue-500"
         [ngStyle]="{ transform: 'rotate(' + getCompassRotation() + 'deg)' }"
       >
         <div
@@ -93,12 +93,12 @@
         </div>
       </div>
       <div
-        class="pin-compass p-5 rounded-full flex flex-col justify-center items-center"
+        class="flex flex-col items-center justify-center p-5 rounded-full pin-compass"
       >
-        <div class="text-sm font-bold text-center">
+        <div class="ml-1 text-sm font-bold text-center">
           {{ windDirection }}&deg;
         </div>
-        <div class="text-xs font-semibodl text-center">
+        <div class="text-xs text-center font-semibodl">
           {{ getWindDirectionLabel() }}
         </div>
       </div>
