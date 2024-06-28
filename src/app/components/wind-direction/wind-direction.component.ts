@@ -49,7 +49,7 @@ export class WindDirectionComponent implements OnInit {
   getWindDirection(): string {
     const rotation = this.getCompassRotation();
     if (rotation >= 348.75 || rotation < 11.25) {
-      return 'North';
+      return 'North'; 
     } else if (rotation >= 11.25 && rotation < 33.75) {
       return 'North-Northeast';
     } else if (rotation >= 33.75 && rotation < 56.25) {
