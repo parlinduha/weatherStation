@@ -1,0 +1,1 @@
+weatherapp-win32-ia32/weatherapp.exe filter=lfs diff=lfs merge=lfs -text
