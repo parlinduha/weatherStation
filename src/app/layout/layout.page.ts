@@ -10,9 +10,9 @@ export class LayoutPage implements OnInit {
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
-    setInterval(() => {
-      this.getDataFromAPI();
-    }, 3000);
+    // setInterval(() => {
+    // }, 3000);
+    this.getDataFromAPI();
   }
 
   getDataFromAPI(): void {
@@ -25,7 +25,7 @@ export class LayoutPage implements OnInit {
           if (oldData !== newData) {
             // Jika data baru berbeda dengan data lama, reload halaman
             localStorage.setItem('anemometer', newData);
-            location.reload();
+            // location.reload();
           } else {
             // Jika data baru sama dengan data lama, tidak perlu reload
             console.log('Data tidak berubah, tidak perlu reload.');
@@ -33,14 +33,14 @@ export class LayoutPage implements OnInit {
         } else {
           // Jika tidak ada data response dari API, clear semua data anemometer di localStorage.
           localStorage.removeItem('anemometer');
-          location.reload();
+          // location.reload();
         }
       },
       (error) => {
         // Tangani error dari API dan hapus data dari localStorage
         console.error('Error fetching data from API:', error);
         localStorage.removeItem('anemometer');
-        location.reload();
+        // location.reload();
       }
     );
   }
